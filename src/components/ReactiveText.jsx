@@ -1,22 +1,14 @@
-// import {useRef} from "react";
-
-// import {useGSAP} from "@gsap/react";
-
 import { useRef } from "react";
 import { gsap } from 'gsap';
 
 const ReactiveText = ({ text }) => {
-    const mousePositionRef = useRef({ x: 0, y: 0 });
     const containerRef = useRef(null);
 
     const handleMouseMove = (event) => {
+        if (!containerRef.current) return;
+
         const rect = containerRef.current.getBoundingClientRect();
         const mouseX = event.clientX - rect.left;
-        const mouseY = event.clientY - rect.top;
-        mousePositionRef.current = {
-            x: mouseX,
-            y: mouseY
-        }
         const letters = containerRef.current.querySelectorAll("span");
         letters.forEach(letter => {
             const box = letter.getBoundingClientRect();
@@ -53,19 +45,6 @@ const ReactiveText = ({ text }) => {
             </span>
         ))
     }
-
-    // const squareRef = useRef(null);
-    //
-    // useGSAP(() => {
-    //     gsap.to(squareRef.current, {
-    //         opacity: 1,
-    //         y: 50,
-    //         scale: 0.8,
-    //         duration: 1,
-    //         ease: 'power1.inOut',
-    //         delay: 2,
-    //     })
-    // },[])
 
     return (
         <>
