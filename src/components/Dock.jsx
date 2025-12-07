@@ -1,5 +1,5 @@
 import {useRef} from "react";
-import {dockApps} from "@constants/index.js";
+import {dockApps} from "@constants";
 import { Tooltip } from 'react-tooltip'
 import {useGSAP} from "@gsap/react";
 import {gsap} from "gsap";
@@ -24,7 +24,6 @@ const Dock = () => {
         } else {
             openWindow(app.id);
         }
-        console.log(windows);
     };
 
     useGSAP(() => {
