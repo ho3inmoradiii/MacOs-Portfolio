@@ -7,7 +7,14 @@ import { Draggable } from "gsap/Draggable";
 const WindowWrapper = (Component, windowKey) => {
     const Wrapped = (props) => {
         const { focusWindow, windows } = useWindowStore();
-        const { isOpen, zIndex } = windows[windowKey];
+        const windowState = windows[windowKey];
+
+        if (!windowState) {
+            console.error(`WindowWrapper: No window state found for key "${windowKey}"`);
+            return null;
+        }
+
+        const { isOpen, zIndex } = windowState;
         const windowRef = useRef(null);
 
         useGSAP(() => {
@@ -52,7 +59,7 @@ const WindowWrapper = (Component, windowKey) => {
         )
     }
 
-    Wrapped.displayName = `WindowWrapper(${Component.displayName || Component.name || "Component"}}`;
+    Wrapped.displayName = `WindowWrapper(${Component.displayName || Component.name || "Component"})`;
 
     return Wrapped;
 }
